@@ -1,8 +1,8 @@
 <template>
-  <h1 v-if="msg" class="message" @click="log">
+  <h1>
     {{ msg }}
   </h1>
-  <Hello />
+  <Hello class="hello" style="font-size: 100px" @click="msg += '!'" />
 </template>
 
 <script>
