@@ -1,8 +1,7 @@
 <template>
-  <h1 v-if="msg" class="message" @click="log">
-    {{ msg }}
-  </h1>
-  <Hello />
+  <Hello v-bind="post" />
+
+  <!-- <Hello :id="post.id" :title="post.title" /> -->
 </template>
 
 <script>
@@ -13,7 +12,11 @@ export default {
   },
   data() {
     return {
-      msg: "Hello Vue",
+      post: {
+        id: 2,
+        title: "Hello Vue!",
+        email: "hello@123.com",
+      },
     };
   },
 };
