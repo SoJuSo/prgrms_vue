@@ -1,15 +1,22 @@
 <template>
-  <h1>
+  <h1 @click="msg += '!!'">
     {{ msg }}
   </h1>
-  <Hello />
+  <Parent />
 </template>
 
 <script>
-import Hello from "~/components/Hello";
+import Parent from "~/components/Parent";
+import { computed } from "vue";
+
 export default {
   components: {
-    Hello,
+    Parent,
+  },
+  provide() {
+    return {
+      msg: computed(() => this.msg),
+    };
   },
   data() {
     return {
