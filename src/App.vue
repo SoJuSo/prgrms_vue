@@ -1,8 +1,19 @@
 <template>
-  <h1 v-if="msg" class="message" @click="log">
+  <h1 @click="slotName = 'abc'">
     {{ msg }}
   </h1>
-  <Hello />
+  <Hello>
+    <!-- 하나만 사용하는 슬롯은 디폴트 슬롯(기본 슬롯) -->
+    <template #default="{ hello }">
+      <h2>Hello {{ hello }}</h2>
+    </template>
+    <!-- <template #abc>
+      <h2>ABC{{ hello }}</h2>
+    </template> -->
+    <template #[slotName]="{ hello }">
+      <h2>ABC{{ hello }}</h2>
+    </template>
+  </Hello>
 </template>
 
 <script>
@@ -13,7 +24,8 @@ export default {
   },
   data() {
     return {
-      msg: "Hello Vue",
+      msg: "Hello Vue!",
+      slotName: "xyz",
     };
   },
 };
