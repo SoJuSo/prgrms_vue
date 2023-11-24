@@ -1,5 +1,8 @@
-import * as Vue from "vue";
-// import { createApp } from "vue";
+// import * as Vue from "vue";
+import { createApp } from "vue";
 import App from "./App.vue";
+import World from "~/components/World";
 
-Vue.createApp(App).mount("#app");
+const app = createApp(App);
+app.component("World", World);
+app.mount("#app");
