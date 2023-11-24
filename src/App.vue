@@ -1,8 +1,9 @@
 <template>
-  <h1 v-if="msg" class="message" @click="log">
+  <h1>
     {{ msg }}
   </h1>
-  <Hello />
+  <!-- props를 통해서 데이터를 내려줄 수 있다. -->
+  <Hello :message="msg" @please="reverseMsg" />
 </template>
 
 <script>
@@ -13,8 +14,13 @@ export default {
   },
   data() {
     return {
-      msg: "Hello Vue",
+      msg: "Hello Vue!",
     };
+  },
+  methods: {
+    reverseMsg() {
+      this.msg = this.msg.split("").reverse().join("");
+    },
   },
 };
 </script>
