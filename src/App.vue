@@ -16,5 +16,16 @@ export default {
       msg: "Hello Vue!",
     };
   },
+  created() {
+    // this.$fetch("https://jsonplaceholder.typicode.com/todos/1").then((res) => console.log(res));
+    // this.$fetch("https://jsonplaceholder.typicode.com/todos/1");
+    this.init();
+  },
+  methods: {
+    async init() {
+      const res = await this.$fetch("https://jsonplaceholder.typicode.com/todos/1");
+      console.log(res, "Done!");
+    },
+  },
 };
 </script>
