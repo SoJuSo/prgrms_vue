@@ -1,6 +1,6 @@
 <template>
   <div style="transform: scale(1)">
-    <Modal width="300px">
+    <Modal v-model="isShow" width="300px">
       <template #activator>
         <button>On Modal!</button>
       </template>
@@ -20,6 +20,7 @@ export default {
   },
   data() {
     return {
+      isShow: false,
       msg: "Hello Vue!",
     };
   },
