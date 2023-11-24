@@ -1,8 +1,14 @@
 <template>
-  <h1 v-if="msg" class="message" @click="log">
+  <h1>
     {{ msg }}
   </h1>
-  <Hello />
+  <!-- <Hello>Hello Vue?</Hello> -->
+  <Hello>
+    <h2>Hello Vue?</h2>
+    <p>The brown fox!</p>
+  </Hello>
+  <Btn>Click me!</Btn>
+  <Btn></Btn>
 </template>
 
 <script>
@@ -13,7 +19,7 @@ export default {
   },
   data() {
     return {
-      msg: "Hello Vue",
+      msg: "Hello Vue!",
     };
   },
 };

@@ -1,9 +1,10 @@
 <template>
+  <slot></slot>
   <h1>Hello</h1>
 </template>
 
 <style scoped lang="scss">
-$color: orange;
+$color: red;
 h1 {
   color: $color;
 }
