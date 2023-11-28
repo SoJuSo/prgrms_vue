@@ -1,5 +1,5 @@
 <template>
-  <h1>About!</h1>
+  <h1>Home!</h1>
   <ul>
     <li>1</li>
     <li>2</li>
