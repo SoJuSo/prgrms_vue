@@ -1,5 +1,5 @@
 <template>
-  <RouterLink> Home.. </RouterLink>
+  <RouterLink to="/"> Home.. </RouterLink>
   <RouterView />
 </template>
 
