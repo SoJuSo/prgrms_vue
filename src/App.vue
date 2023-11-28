@@ -1,8 +1,6 @@
 <template>
-  <h1>
-    {{ msg }}
-  </h1>
-  <Hello />
+  <RouterLink> Home.. </RouterLink>
+  <RouterView />
 </template>
 
 <script>
