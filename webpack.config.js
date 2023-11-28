@@ -16,17 +16,23 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "dist"), // 혹은 'build' 혹은 'public'이지만 dist가 제일 무난
+    publicPath: true,
     clean: true,
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/, // \/(?!axios)
+        use: "babel-loader",
+      },
       {
         test: /\.vue$/,
         use: "vue-loader",
       },
       {
         test: /\.s?css$/, //css를 찾고
-        use: ["vue-style-loader", "css-loader", "sass-loader"], // 순서가 중요하다. 역순으로 해석되기 때문이다.
+        use: ["vue-style-loader", "css-loader", "postcss-loader", "sass-loader"], // 순서가 중요하다. 역순으로 해석되기 때문이다.
       },
     ],
   },
@@ -43,7 +49,7 @@ module.exports = {
       ],
     }),
   ],
-  //   devServer: {
-  //     port: 1234, // 디폴트는 8080
-  //   },
+  devServer: {
+    historyFallback: true,
+  },
 };
