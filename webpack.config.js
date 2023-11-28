@@ -16,7 +16,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "dist"), // 혹은 'build' 혹은 'public'이지만 dist가 제일 무난
-    publicPath: true,
+    publicPath: "/",
     clean: true,
   },
   module: {
@@ -32,7 +32,26 @@ module.exports = {
       },
       {
         test: /\.s?css$/, //css를 찾고
-        use: ["vue-style-loader", "css-loader", "postcss-loader", "sass-loader"], // 순서가 중요하다. 역순으로 해석되기 때문이다.
+        use: [
+          "vue-style-loader",
+          "css-loader",
+          "postcss-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              additionalData: `
+              @use "sass:color";
+              @use "sass:list";
+              @use "sass:map";
+              @use "sass:math";
+              @use "sass:meta";
+              @use "sass:selector";
+              @use "sass:string";
+              @import "~/scss/_variables";
+              `,
+            },
+          },
+        ], // 순서가 중요하다. 역순으로 해석되기 때문이다.
       },
     ],
   },
@@ -50,6 +69,6 @@ module.exports = {
     }),
   ],
   devServer: {
-    historyFallback: true,
+    historyApiFallback: true,
   },
 };
