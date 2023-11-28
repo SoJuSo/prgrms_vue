@@ -16,6 +16,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.resolve(__dirname, "dist"), // 혹은 'build' 혹은 'public'이지만 dist가 제일 무난
+    publicPath: "/", // 기본적인 절대 경로 명시
     clean: true,
   },
   module: {
@@ -43,6 +44,9 @@ module.exports = {
       ],
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
   //   devServer: {
   //     port: 1234, // 디폴트는 8080
   //   },
