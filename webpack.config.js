@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/, //css를 찾고
-        use: ["vue-style-loader", "css-loader", "sass-loader"], // 순서가 중요하다. 역순으로 해석되기 때문이다.
+        use: ["vue-style-loader", "css-loader", "postcss-loader", "sass-loader"], // 순서가 중요하다. 역순으로 해석되기 때문이다.
       },
     ],
   },
