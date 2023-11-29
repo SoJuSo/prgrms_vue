@@ -1,12 +1,19 @@
 <template>
   <!-- <h1>{{ $route.params.id }}</h1> -->
-  <section>
+  <section :key="$route.params.id">
     <div class="inner">
       <!-- v-model 사용 불가 -->
-      <div ref="title" class="title" contenteditable @input="onInput">
+      <div ref="title" class="title" placeholder="제목 없음" contenteditable @input="onInput">
         {{ title }}
       </div>
-      <div ref="content" class="content" contenteditable @input="onInput" v-html="content"></div>
+      <div
+        ref="content"
+        class="content"
+        placeholder="내용을 입력하세요!"
+        contenteditable
+        @input="onInput"
+        v-html="content"
+      ></div>
     </div>
   </section>
 </template>
@@ -21,6 +28,14 @@ export default {
       return this.$store.state.workspace.currentWorkspace.content;
     },
   },
+  watch: {
+    $route() {
+      // console.log(this.$route);
+      this.$store.dispatch("workspace/readWorkspace", {
+        id: this.$route.params.id,
+      });
+    },
+  },
   created() {
     this.$store.dispatch("workspace/readWorkspace", {
       id: this.$route.params.id,
@@ -28,6 +43,9 @@ export default {
   },
   methods: {
     onInput() {
+      if (!this.$refs.content.textContent.trim()) {
+        this.$refs.content.innerHTML = "";
+      }
       // console.log(this.$refs.title.textContent);
       // console.log(this.$refs.content.innerHTML);
       this.$store.dispatch("workspace/updateWorkspace", {
@@ -58,6 +76,11 @@ section {
       &.content {
         font-size: 16px;
         line-height: 1.8;
+      }
+      &:empty::before {
+        // content: "abc!"; attr()함수
+        content: attr(placeholder);
+        color: rgba($color-font, 0.3);
       }
     }
   }
