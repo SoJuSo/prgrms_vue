@@ -13,15 +13,15 @@
         })
       "
     >
-      <span :class="{ active: showChildren }" class="material-icons" @click="showChildren = !showChildren">
+      <span :class="{ active: showChildren }" class="material-icons" @click.stop="showChildren = !showChildren">
         play_arrow
       </span>
       <span class="text">
         {{ workspace.title || "제목 없음" }}
       </span>
       <div class="actions">
-        <span class="material-icons" @click="createWorkspace"> add </span>
-        <span class="material-icons" @click="deleteWorkspace"> delete </span>
+        <span class="material-icons" @click.stop="createWorkspace"> add </span>
+        <span class="material-icons" @click.stop="deleteWorkspace"> delete </span>
       </div>
     </div>
     <div v-if="!hasChildren && showChildren" :style="{ paddingLeft: `${14 * depth + 22}px` }" class="no-children">
@@ -56,8 +56,9 @@ export default {
     },
   },
   created() {
-    // console.log(this.$route.params.id, typeof this.$route.params.id);
-    // console.log(this.workspace.id, typeof this.workspace.id);
+    this.showChildren = this.$store.state.workspace.currentWorkspacePath.some((workspace) => {
+      return workspace.id === this.workspace.id;
+    });
   },
   methods: {
     async createWorkspace() {

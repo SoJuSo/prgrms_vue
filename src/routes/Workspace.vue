@@ -34,6 +34,7 @@ export default {
       this.$store.dispatch("workspace/readWorkspace", {
         id: this.$route.params.id,
       });
+      this.$store.dispatch("workspace/findWorkspacePath");
     },
   },
   created() {
