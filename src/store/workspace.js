@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       workspaces: [],
+      currentWorkspace: {},
     };
   },
   getters: {},
@@ -40,8 +41,34 @@ export default {
         workspaces: workspaces,
       });
     },
-    readWorkspace() {},
-    updateWorkspace() {},
+    async readWorkspace({ commit }, payload) {
+      const { id } = payload;
+      const workspace = await fetch(`https://kdt-frontend.programmers.co.kr/documents/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-username": "ksj-notion-cloning",
+        },
+      }).then((res) => res.json());
+      console.log(workspace);
+      commit("assignState", {
+        currentWorkspace: workspace,
+      });
+    },
+    async updateWorkspace(context, payload) {
+      const { id, title, content } = payload;
+      await fetch(`https://kdt-frontend.programmers.co.kr/documents/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-username": "ksj-notion-cloning",
+        },
+        body: JSON.stringify({
+          title,
+          content,
+        }),
+      }).then((res) => res.json());
+    },
     async deleteWorkspace({ dispatch }, payload) {
       const { id } = payload;
       await fetch(`https://kdt-frontend.programmers.co.kr/documents/${id}`, {
