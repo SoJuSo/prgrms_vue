@@ -8,8 +8,8 @@
         {{ workspace.title || "제목 없음" }}
       </span>
       <div class="actions">
-        <span class="material-icons"> add </span>
-        <span class="material-icons"> delete </span>
+        <span class="material-icons" @click="createWorkspace"> add </span>
+        <span class="material-icons" @click="deleteWorkspace"> delete </span>
       </div>
     </div>
     <div v-if="!hasChildren && showChildren" :style="{ paddingLeft: `${14 * depth + 22}px` }" class="no-children">
@@ -41,6 +41,19 @@ export default {
   computed: {
     hasChildren() {
       return this.workspace.documents && this.workspace.documents.length;
+    },
+  },
+  methods: {
+    async createWorkspace() {
+      await this.$store.dispatch("workspace/createWorkspace", {
+        parentId: this.workspace.id,
+      });
+      this.showChildren = true;
+    },
+    deleteWorkspace() {
+      this.$store.dispatch("workspace/deleteWorkspace", {
+        id: this.workspace.id,
+      });
     },
   },
 };

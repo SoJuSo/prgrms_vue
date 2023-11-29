@@ -14,7 +14,19 @@ export default {
     },
   },
   actions: {
-    createWorkspace() {},
+    // 기본값 설정 payload = {}
+    async createWorkspace({ dispatch }, payload = {}) {
+      const { parentId } = payload;
+      await fetch("https://kdt-frontend.programmers.co.kr/documents", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-username": "ksj-notion-cloning",
+        },
+        body: JSON.stringify({ title: "", parent: parentId }),
+      }).then((res) => res.json());
+      await dispatch("readWorkspaces");
+    },
     async readWorkspaces({ commit }) {
       const workspaces = await fetch("https://kdt-frontend.programmers.co.kr/documents", {
         method: "GET",
@@ -30,6 +42,16 @@ export default {
     },
     readWorkspace() {},
     updateWorkspace() {},
-    deleteWorkspace() {},
+    async deleteWorkspace({ dispatch }, payload) {
+      const { id } = payload;
+      await fetch(`https://kdt-frontend.programmers.co.kr/documents/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-username": "ksj-notion-cloning",
+        },
+      }).then((res) => res.json());
+      dispatch("readWorkspaces");
+    },
   },
 };
